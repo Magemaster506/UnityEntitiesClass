@@ -161,15 +161,14 @@ public class Entities : MonoBehaviour
         //lerp to targetPos over time
     }
 
-
-
     //Irregulars
+
     public void SaveEntityBehaviour()
     {
         saveSystem.Save();
     }
     public void StuckDoorEntityBehaviour()
     {
-
+        mainTextObject.text = "The door won't budge...";
     }
 }
