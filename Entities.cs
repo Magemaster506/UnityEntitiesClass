@@ -8,12 +8,24 @@ public class Entities : MonoBehaviour
     [Header("Static Data")]
 
     public string entityName;
+
+    [Header("Irregular Entities")]
+
+    public SaveSystem saveSystem;
+
     public bool irregular = false;
+    public IrregularType irregularType;
+    public enum IrregularType
+    {
+        Null,
+        Save,
+        StuckDoor
+    }
 
     [Header("Handling Entity Class")]    
     public EntityClass entityClass;
 
-    [SerializeField]public enum EntityClass
+    public enum EntityClass
     {
         Door,
         Key,
@@ -45,6 +57,10 @@ public class Entities : MonoBehaviour
     public string[] paragraphs = new string[1];
 
     [Header("Entity - Static")]
+    public bool shouldDisapear = false;
+    public bool shouldMove = false;
+    public float moveSpeed = 1;
+    public Transform desiredMovePos;
     public Material material;
     public enum Material
     {
@@ -80,7 +96,18 @@ public class Entities : MonoBehaviour
         }
         else
         {
-            DefaultEntityBehaviour(entityName);
+            if(irregularType == IrregularType.Null)
+            {
+                DefaultEntityBehaviour(entityname);
+            }
+            if(irregularType == IrregularType.Save)
+            {
+                SaveEntityBehaviour();
+            }
+            if(irregularType == IrregularType.StuckDoor)
+            {
+                StuckDoorEntityBehaviour();
+            }
         }
     }
 
@@ -119,5 +146,30 @@ public class Entities : MonoBehaviour
     {
         mainTextObject.text = "It's a " + name + "...";
         Debug.Log(sMaterial);
+
+        if (shouldMove)
+        {
+            EntityMoveController(desiredMovePos);
+        }
+        if (shouldDisapear)
+        {
+            gameObject.SetActive(false);
+        }
+    }
+    public void EntityMoveController(Transform targetPos, float speed)
+    {
+        //lerp to targetPos over time
+    }
+
+
+
+    //Irregulars
+    public void SaveEntityBehaviour()
+    {
+        saveSystem.Save();
+    }
+    public void StuckDoorEntityBehaviour()
+    {
+
     }
 }
