@@ -18,9 +18,11 @@ public class Entities : MonoBehaviour
     public enum IrregularType
     {
         Null,
+        CustomDialogue,
         Save,
         StuckDoor
     }
+    public string customText;
 
     [Header("Handling Entity Class")]    
     public EntityClass entityClass;
@@ -100,6 +102,10 @@ public class Entities : MonoBehaviour
             {
                 DefaultEntityBehaviour(entityname);
             }
+            if(irregularType == IrregularType.CustomDialogue)
+            {
+                CustomEntityBehaviour();
+            }
             if(irregularType == IrregularType.Save)
             {
                 SaveEntityBehaviour();
@@ -114,6 +120,10 @@ public class Entities : MonoBehaviour
     public void DefaultEntityBehaviour(string name)
     {
         mainTextObject.text = "It's a " + name + ".";
+    }
+    public void CustomEntityBehaviour()
+    {
+        mainTextObject.text = customText;
     }
 
     //Custom Entity Classes
@@ -158,7 +168,7 @@ public class Entities : MonoBehaviour
     }
     public void EntityMoveController(Transform targetPos, float speed)
     {
-        //lerp to targetPos over time
+        //
     }
 
     //Irregulars
@@ -166,9 +176,11 @@ public class Entities : MonoBehaviour
     public void SaveEntityBehaviour()
     {
         saveSystem.Save();
+        mainTextObject.text = "Hopefully that saved.";
     }
     public void StuckDoorEntityBehaviour()
     {
         mainTextObject.text = "The door won't budge...";
+
     }
 }
