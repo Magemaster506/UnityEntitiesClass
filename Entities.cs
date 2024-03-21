@@ -151,6 +151,10 @@ public class Entities : MonoBehaviour
     public void PersonEntityBehaviour(string name)
     {
         mainTextObject.text = paragraphs[1];
+        if (input.GetKeyDown(KeyCode.E))
+        {
+            mainTextObject.text = paragraphs[2];
+        }
     }
     public void StaticEntityBehaviour(string name, Material sMaterial)
     {

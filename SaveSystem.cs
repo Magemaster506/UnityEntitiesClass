@@ -20,3 +20,8 @@ public class PlayerData{
     public string player_name;
     public float playTime;
 }
+
+[System.Serializable]
+public class PositionData{
+    public string room_name;
+}
