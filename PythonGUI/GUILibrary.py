@@ -12,21 +12,34 @@ window.title(TITLE)
 window.minsize(WINWIDTH, WINHEIGHT)
 window.resizable(False, False)
 
-def helloCallBack():
-    msg=messagebox.showinfo( "CallBack", "Text")
+def HelloCallBack():
+    msg=messagebox.showinfo("CallBack", "Text")
 
-def openSnakeWindow():
+def OpenSnakeWindow():
     snakeWindow = Toplevel(window)
     snakeWindow.title("Snake")
     Label(snakeWindow, text = "this is the text for snake").pack()
+
+def OpenAstroidsWindow():
+    snakeWindow = Toplevel(window)
+    snakeWindow.title("Snake")
+    Label(snakeWindow, text = "this is the text for Astroids").pack()
 
 def TitleSetup(text):
     titleText = Label(window, text=text)
     titleText.config(font=("Helvetica", 30))
     titleText.pack()
 
+def SnakeButtonSetup(text, xPos, yPos):
+    buttonOne = Button(window, text=text, height = 2, width = 13,command = OpenSnakeWindow, bg="silver")
+    buttonOne.place(x=xPos,y=yPos)
+    
+def AstroidsButtonSetup(text, xPos, yPos):
+    buttonOne = Button(window, text=text, height = 2, width = 13, command = OpenAstroidsWindow, bg="silver")
+    buttonOne.place(x=xPos, y=yPos)
+    
 def ButtonSetup(text, xPos, yPos):
-    buttonOne = Button(window, text=text, height = 2, width = 13,command = openSnakeWindow, bg="silver")
+    buttonOne = Button(window, text=text, height = 2, width = 13,command = HelloCallBack, bg="silver")
     buttonOne.place(x=xPos,y=yPos)
     
 def QuitButtonSetup(text, xPos, yPos):
@@ -35,11 +48,13 @@ def QuitButtonSetup(text, xPos, yPos):
 
 def DrawMenu():
     TitleSetup(TITLE)
-    ButtonSetup("Snake", 100, 100)
-    ButtonSetup("option2", 250, 100)
+    
+    SnakeButtonSetup("Snake", 100, 100)
+    AstroidsButtonSetup("Astroids", 250, 100)
     ButtonSetup("option3", 400, 100)
     ButtonSetup("option4", 175, 175)
     ButtonSetup("option4", 325, 175)
+    
     QuitButtonSetup("Quit", 85, 300)
 
 DrawMenu()
