@@ -1,6 +1,5 @@
 from tkinter import *
 from tkinter import messagebox
-import pygame
 import random
 
 TITLE = "Game Center"
@@ -51,52 +50,52 @@ def OpenInsultWindow():
     insultWindow.title("Insult Me")
     insultWindow.minsize(WINWIDTH, WINHEIGHT)
     insultWindow.resizable(False, False)
-    Label(insultWindow, text = "This is the text for insult").pack()
+    lbl = Label(insultWindow, text = "Press the button below to be insulted.", font =("Helvetica", 25)).pack()
 
-    column1=["artless", "bawdy", "beslubbering", "bootless", "churlish", "cloven", "clouted", "craven", "currish",
+
+
+    def onclick(target):
+        target.lbl.destroy()
+        textWindow = Toplevel(window)
+        textWindow.title("YourInsult")
+        textWindow.minsize(100,25)
+        textWindow.resizable(False, False)
+        column1=["artless", "bawdy", "beslubbering", "bootless", "churlish", "cloven", "clouted", "craven", "currish",
             "dankish", "dissembling", "droning", "errant", "fawning", "fobbing", "forward", "frothy", "gleeking",
             "goatish", "gorbellied", "impertinent", "infectious", "jarring", "loggerheaded", "lumpish", "mammering",
             "mangled", "mewling", "paunchy", "pribbling", "puking", "puny", "qualling", "rank", "reeky",
             "roguish", "ruttish", "saucy", "spleeny", "spongy", "surly", "tottering", "unmuzzled", "vain", "venomed",
             "villainous", "warped", "wayward", "weedy", "yeast"]
 
-    column2=["base-court", "bat-fowling", "beef-witted", "beetle-headed", "boil-brained", "clapper-clawed",
-            "clay-brained", "common-kissing", "crook-pated", "dismal-dreaming", "dizzy-eyed", "doghearted",
-            "dread-bolted", "earth-vexing", "elf-skinned", "fat-kidneyed", "fen-faced", "flap-mouthed",
-            "fly-bitten", "folly-fallen", "fool-born", "full-gorged", "guts-griping", "half-faced",
-            "hasty-witted", "hedge-born", "hell-hated", "idle-headed", "ill-breeding", "ill-nurtured",
-            "knotty-pated", "milk-livered", "motley-minded", "onion-eyed", "plume-plucked", "pottle-deep",
-            "pox-marked", "reeling-ripe", "rough-hewn", "rude-growing", "rump-fed", "shard-borne",
-            "sheep-biting", "spur-galled", "swag-bellied", "tardy-gaited", "tickle-brained", "toad-spotted", 
-            "unchin-snouted", "weather-bitten"]
+        column2=["base-court", "bat-fowling", "beef-witted", "beetle-headed", "boil-brained", "clapper-clawed",
+                "clay-brained", "common-kissing", "crook-pated", "dismal-dreaming", "dizzy-eyed", "doghearted",
+                "dread-bolted", "earth-vexing", "elf-skinned", "fat-kidneyed", "fen-faced", "flap-mouthed",
+                "fly-bitten", "folly-fallen", "fool-born", "full-gorged", "guts-griping", "half-faced",
+                "hasty-witted", "hedge-born", "hell-hated", "idle-headed", "ill-breeding", "ill-nurtured",
+                "knotty-pated", "milk-livered", "motley-minded", "onion-eyed", "plume-plucked", "pottle-deep",
+                "pox-marked", "reeling-ripe", "rough-hewn", "rude-growing", "rump-fed", "shard-borne",
+                "sheep-biting", "spur-galled", "swag-bellied", "tardy-gaited", "tickle-brained", "toad-spotted", 
+                "unchin-snouted", "weather-bitten"]
 
-    column3=["apple-john", "baggage", "barnacle", "bladder", "boar-pig", "bugbear", "box-bailey", "canker-blossom",
-            "clack-dish", "clotpole", "coxcomb", "cod-fish", "death-token", "dewberry", "flap-dragon", "flax-wench",
-            "flirt-gill", "foot-licker", "fustilarian", "giglet", "gudgeon", "haggard", "harpo", "hedge-pig",
-            "horn-beast", "hugger-mugger", "joithead", "lewdster", "lout", "maggot-pie", "malt-worm", "mammet",
-            "measle", "minnow", "miscreant", "moldwarp", "mumble-news", "nut-hook", "pigeon-egg", "pignut",
-            "puttock", "pumpion", "ratsbane", "scud", "skainsmate", "trumpet", "varlot", "vassal", "whey-face",
-            "wagtail"]
+        column3=["apple-john", "baggage", "barnacle", "bladder", "boar-pig", "bugbear", "box-bailey", "canker-blossom",
+                "clack-dish", "clotpole", "coxcomb", "cod-fish", "death-token", "dewberry", "flap-dragon", "flax-wench",
+                "flirt-gill", "foot-licker", "fustilarian", "giglet", "gudgeon", "haggard", "harpo", "hedge-pig",
+                "horn-beast", "hugger-mugger", "joithead", "lewdster", "lout", "maggot-pie", "malt-worm", "mammet",
+                "measle", "minnow", "miscreant", "moldwarp", "mumble-news", "nut-hook", "pigeon-egg", "pignut",
+                "puttock", "pumpion", "ratsbane", "scud", "skainsmate", "trumpet", "varlot", "vassal", "whey-face",
+                "wagtail"]
 
-    maxcol1 = len(column1)
-    maxcol2 = len(column2)
-    maxcol3 = len(column3)
+        maxcol1 = len(column1)
+        maxcol2 = len(column2)
+        maxcol3 = len(column3)
+        value = column1[random.randint(0,maxcol1)],column2[random.randint(0,maxcol2)],column3[random.randint(0,maxcol3)]
+        lbl = Label(textWindow, text = value).pack()
 
-    buttonOne = Button(insultWindow, text="INSULT ME", height = 4, width = 20, command = OpenInsultWindow, bg="silver")
-    buttonOne.place(x=85,y=200)
-
-    print("You're a", column1[random.randint(0,maxcol1)],
-          column2[random.randint(0,maxcol2)],
-          column3[random.randint(0,maxcol3)])
-
-        #endcase
-    print("Well thank you, you", column1[random.randint(0,maxcol1)],
-                column2[random.randint(0,maxcol2)],
-                column3[random.randint(0,maxcol3)])
-    print("That was not a valid choice, Goodbye you", 
-                column1[random.randint(0,maxcol1)],
-                column2[random.randint(0,maxcol2)],
-                column3[random.randint(0,maxcol3)])
+    buttonOne = Button(insultWindow, text="Insult Me", height = 6, width = 60,command= lambda: onclick(insultWindow), bg="lightblue")
+    buttonTwo = Button(insultWindow, text="Back", height = 3, width = 60,command = insultWindow.destroy, bg="tomato")
+    buttonTwo.place(x=85,y=300)  
+    buttonOne.place(x=85,y=150)  
+        
 
 
 def TitleSetup(text):
