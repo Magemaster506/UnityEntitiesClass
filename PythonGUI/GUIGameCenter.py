@@ -70,7 +70,7 @@ def OpenCalcWindow():
     GWindow.title("Calculator")
     GWindow.minsize(WINWIDTH, WINHEIGHT)
     GWindow.resizable(False, False)
-    lbl = Label(GWindow, text = "Press one of the buttons below.", font =("Helvetica", 25)).pack()
+    lbl = Label(GWindow, text = "Press one of the buttons to calculate.", font =("Helvetica", 25)).pack()
 
     input_entry_1 = Entry(GWindow, font=("Helvetica", 12))
     input_entry_2 = Entry(GWindow, font=("Helvetica", 12))
@@ -85,7 +85,9 @@ def OpenCalcWindow():
         user_input_1 = int(user_input_1)  
         user_input_2 = int(user_input_2) 
 
+        correctnessLabel.config(text="Good job!")
         print(user_input_1 + user_input_2)
+        
 
     def subtraction():
         user_input_1 = input_entry_1.get()
