@@ -88,26 +88,31 @@ def OpenCalcWindow():
         print(user_input_1 + user_input_2)
 
     def subtraction():
-        pass
-    def multiplication():
-        pass
-
-    def calcFunc():
         user_input_1 = input_entry_1.get()
         user_input_2 = input_entry_2.get()
-        try:
-            pass
-        except ValueError:
-            correctnessLabel.config(text="Please enter a valid number")
+
+        user_input_1 = int(user_input_1)  
+        user_input_2 = int(user_input_2) 
+
+        print(user_input_1 - user_input_2)
+    def multiplication():
+        user_input_1 = input_entry_1.get()
+        user_input_2 = input_entry_2.get()
+
+        user_input_1 = int(user_input_1)  
+        user_input_2 = int(user_input_2) 
+
+        print(user_input_1 * user_input_2)
+
 
     correctnessLabel = Label(GWindow, text="", font=("Helvetica", 17))
     correctnessLabel.pack()
     
-    addButton = Button(GWindow, text="Guess", height = 3, width = 5, command = addition, bg="lightblue")
+    addButton = Button(GWindow, text="Addition", height = 2, width = 10, command = addition, bg="lightblue")
     addButton.place(x=80, y=200)
-    minusButton = Button(GWindow, text="Guess", height = 3, width = 5, command = subtraction, bg="lightblue")
+    minusButton = Button(GWindow, text="Subtraction", height = 2, width = 10, command = subtraction, bg="lightblue")
     minusButton.place(x=190, y=200)
-    multiButton = Button(GWindow, text="Guess", height = 3, width = 5, command = multiplication, bg="lightblue")
+    multiButton = Button(GWindow, text="Multiplication", height = 2, width = 10, command = multiplication, bg="lightblue")
     multiButton.place(x=300, y=200)
     
     buttonTwo = Button(GWindow, text="Back", height = 3, width = 60,command = GWindow.destroy, bg="tomato")
