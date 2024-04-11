@@ -1,28 +1,22 @@
+#Imports
 from tkinter import *
 from tkinter import messagebox
 import random
 
 #Initialise varaibles
-TITLE = "Game Center"
+TITLE = "Python Game Center"
 WINWIDTH = 600
 WINHEIGHT = 400
 
-#Main Window Setup
+#Mainmenu Window Setup
 window = Tk()
 window.title(TITLE)
 window.minsize(WINWIDTH, WINHEIGHT)
 window.resizable(False, False)
 
 #Declaring functions
-def HelloCallBack():
+def ReturnHello():
     msg=messagebox.showinfo("CallBack", "Text")
-
-def OpenMineWindow():
-    mineWindow = Toplevel(window)
-    mineWindow.title("Minesweeper")
-    mineWindow.minsize(WINWIDTH, WINHEIGHT)
-    mineWindow.resizable(False, False)
-    Label(mineWindow, text = "this is the text for MineSweeper").pack()
 
 def OpenGuessingWindow():
     GWindow = Toplevel(window)
@@ -85,8 +79,9 @@ def OpenCalcWindow():
         user_input_1 = int(user_input_1)  
         user_input_2 = int(user_input_2) 
 
-        correctnessLabel.config(text="Good job!")
-        print(user_input_1 + user_input_2)
+        result = user_input_1 + user_input_2
+
+        correctnessLabel.config(text=result)
         
 
     def subtraction():
@@ -96,7 +91,10 @@ def OpenCalcWindow():
         user_input_1 = int(user_input_1)  
         user_input_2 = int(user_input_2) 
 
-        print(user_input_1 - user_input_2)
+        result = user_input_1 - user_input_2
+
+        correctnessLabel.config(text=result)
+
     def multiplication():
         user_input_1 = input_entry_1.get()
         user_input_2 = input_entry_2.get()
@@ -104,28 +102,23 @@ def OpenCalcWindow():
         user_input_1 = int(user_input_1)  
         user_input_2 = int(user_input_2) 
 
-        print(user_input_1 * user_input_2)
+        result = user_input_1 * user_input_2
+
+        correctnessLabel.config(text=result)
 
 
     correctnessLabel = Label(GWindow, text="", font=("Helvetica", 17))
     correctnessLabel.pack()
     
     addButton = Button(GWindow, text="Addition", height = 2, width = 10, command = addition, bg="lightblue")
-    addButton.place(x=80, y=200)
+    addButton.place(x=150, y=200)
     minusButton = Button(GWindow, text="Subtraction", height = 2, width = 10, command = subtraction, bg="lightblue")
-    minusButton.place(x=190, y=200)
+    minusButton.place(x=260, y=200)
     multiButton = Button(GWindow, text="Multiplication", height = 2, width = 10, command = multiplication, bg="lightblue")
-    multiButton.place(x=300, y=200)
+    multiButton.place(x=370, y=200)
     
-    buttonTwo = Button(GWindow, text="Back", height = 3, width = 60,command = GWindow.destroy, bg="tomato")
-    buttonTwo.place(x=85,y=300)  
-
-def OpenAstroidsWindow():
-    astroidsWindow = Toplevel(window)
-    astroidsWindow.title("Astroids")
-    astroidsWindow.minsize(WINWIDTH, WINHEIGHT)
-    astroidsWindow.resizable(False, False)
-    Label(astroidsWindow, text = "this is the text for Astroids").pack()
+    quitButton = Button(GWindow, text="Back", height = 3, width = 60,command = GWindow.destroy, bg="tomato")
+    quitButton.place(x=85,y=300)  
 
 def OpenInsultWindow():
     OpenInsultWindow.insultWindow = Tk()
@@ -177,9 +170,15 @@ def OpenInsultWindow():
 
 #Header setup
 def TitleSetup(text):
+    topText = Label(window, text="Welcome to")
+    topText.config(font=("Helvetica", 18))
+    topText.pack()
     titleText = Label(window, text=text)
     titleText.config(font=("Helvetica", 30))
     titleText.pack()
+    bodyText = Label(window, text="Click a button to get started")
+    bodyText.config(font=("Helvetica", 11))
+    bodyText.pack()
 
 #Individual button setup
 def InsultButtonSetup(text, xPos, yPos):
@@ -194,27 +193,24 @@ def CalcButtonSetup(text, xPos, yPos):
     buttonOne = Button(window, text=text, height = 2, width = 13, command = OpenCalcWindow, bg="silver")
     buttonOne.place(x=xPos, y=yPos)
 
-def MineButtonSetup(text, xPos, yPos):
-    buttonOne = Button(window, text=text, height = 2, width = 13, command = OpenMineWindow, bg="silver")
-    buttonOne.place(x=xPos,y=yPos)
-    
 def ButtonSetup(text, xPos, yPos):
-    buttonOne = Button(window, text=text, height = 2, width = 13,command = HelloCallBack, bg="silver")
+    buttonOne = Button(window, text=text, height = 2, width = 13,command = ReturnHello, bg="silver")
     buttonOne.place(x=xPos,y=yPos)
     
+
 def QuitButtonSetup(text, xPos, yPos):
     buttonOne = Button(window, text=text, height = 3, width = 60,command = window.destroy, bg="tomato")
     buttonOne.place(x=xPos,y=yPos)  
 
-#Draw gui elements to screen
+#Draw GUI elements to screen
 def DrawMenu():
     TitleSetup(TITLE)
     
-    GuessingButtonSetup("Guessing Game", 100, 100)
-    CalcButtonSetup("Calculator", 250, 100)
-    ButtonSetup("option3", 400, 100)
-    InsultButtonSetup("Insult Me", 175, 175)
-    ButtonSetup("option5", 325, 175)
+    GuessingButtonSetup("Guessing Game", 100, 135)
+    CalcButtonSetup("Calculator", 250, 135)
+    ButtonSetup("option3", 400, 135)
+    InsultButtonSetup("Insult Me", 175, 210)
+    ButtonSetup("option5", 325, 210)
     
     QuitButtonSetup("Quit", 85, 300)
 
