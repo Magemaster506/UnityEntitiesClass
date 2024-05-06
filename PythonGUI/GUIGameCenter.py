@@ -14,6 +14,8 @@ window.title(TITLE)
 window.minsize(WINWIDTH, WINHEIGHT)
 window.resizable(False, False)
 
+total_guesses = 0
+
 #Declaring functions
 def ReturnHello():
     msg=messagebox.showinfo("CallBack", "Text")
@@ -27,14 +29,18 @@ def OpenGuessingWindow():
     minimumRandomNumber = 1
     maximumRandomNumber = 100 
     correct_number = random.randint(minimumRandomNumber, maximumRandomNumber)
+    print(correct_number)
     input_entry = Entry(GWindow, font=("Helvetica", 12))
     input_entry.pack()
     
     def guessingFunc():
+        global total_guesses
+        numberOfGuesses.config(text="Total guesses = " + str(total_guesses))
+        total_guesses += 1
+        print(total_guesses)
         user_input = input_entry.get()
         try:
             user_input = int(user_input)  
-
             if user_input == correct_number:
                 correctnessLabel.config(text="Good job!")
             else:
@@ -47,7 +53,10 @@ def OpenGuessingWindow():
 
     correctnessLabel = Label(GWindow, text="", font=("Helvetica", 17))
     correctnessLabel.pack()
-    
+
+    numberOfGuesses = Label(GWindow, text="", font=("Helvetica", 10))
+    numberOfGuesses.pack()
+
     buttonOne = Button(GWindow, text="Guess", height = 3, width = 30, command = guessingFunc, bg="lightblue")
     buttonOne.place(x=190, y=200)
     
@@ -197,7 +206,6 @@ def ButtonSetup(text, xPos, yPos):
     buttonOne = Button(window, text=text, height = 2, width = 13,command = ReturnHello, bg="silver")
     buttonOne.place(x=xPos,y=yPos)
     
-
 def QuitButtonSetup(text, xPos, yPos):
     buttonOne = Button(window, text=text, height = 3, width = 60,command = window.destroy, bg="tomato")
     buttonOne.place(x=xPos,y=yPos)  
