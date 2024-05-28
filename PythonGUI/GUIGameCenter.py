@@ -14,7 +14,12 @@ window.title(TITLE)
 window.minsize(WINWIDTH, WINHEIGHT)
 window.resizable(False, False)
 
-total_guesses = 0
+total_guesses = 1
+
+player_score = 0
+opponent_score = 0
+
+blankString = ""
 
 #Declaring functions
 def ReturnHello():
@@ -39,17 +44,23 @@ def OpenGuessingWindow():
         total_guesses += 1
         print(total_guesses)
         user_input = input_entry.get()
+
         try:
             user_input = int(user_input)  
             if user_input == correct_number:
                 correctnessLabel.config(text="Good job!")
             else:
-                if user_input > correct_number:
-                    correctnessLabel.config(text="Your guess was too high!")
-                elif user_input < correct_number:
-                    correctnessLabel.config(text="Your guess was too low!")
+                if user_input == correct_number:
+                    correctnessLabel.config(text="Good job!")
+                elif abs(user_input - correct_number) <= 2:
+                    correctnessLabel.config(text="Boiling!")
+                elif abs(user_input - correct_number) <= 5:
+                    correctnessLabel.config(text="You're Hot!")
+                else:
+                    correctnessLabel.config(text="Cold!")
         except ValueError:
             correctnessLabel.config(text="Please enter a valid number")
+
 
     correctnessLabel = Label(GWindow, text="", font=("Helvetica", 17))
     correctnessLabel.pack()
@@ -62,6 +73,81 @@ def OpenGuessingWindow():
     
     buttonTwo = Button(GWindow, text="Back", height = 3, width = 60,command = GWindow.destroy, bg="tomato")
     buttonTwo.place(x=85,y=300)  
+
+def OpenPigDiceWindow():
+    GWindow = Toplevel(window)
+    GWindow.title("Pig Dice Game")
+    GWindow.minsize(WINWIDTH, WINHEIGHT)
+    GWindow.resizable(False, False)
+    lbl = Label(GWindow, text = "Press on the button below to roll...", font=("Helvetica", 25)).pack()
+    global player_score 
+    global opponent_score 
+    player_score = 0
+    opponent_score = 0
+
+    def RollFunc():
+        global player_score
+        global opponent_score
+
+        if(player_score > 29):
+            winnerLabel.config(text="Congratulations, You Won The Game!")
+        elif(opponent_score > 29):
+            winnerLabel.config(text="Your Opponent Won, Better Luck Next Time...")
+        elif(player_score > 29 and opponent_score > 29):
+            winnerLabel.config(text="You both tied!")
+        else:
+            player_roll = random.randint(1,6)
+            opponent_roll = random.randint(1,6)
+
+            if(player_roll == 1):
+                player_score = 0
+                playerTotalLabel.config(text="You total score is : " + str(player_score))
+                playerAddLabel.config(text="You rolled a 1... Your score reset!")
+
+                opponent_roll = random.randint(1,6)
+                opponent_score += opponent_roll
+                opponentTotalLabel.config(text="Their total score is : " + str(opponent_score))
+                opponentAddLabel.config(text="They rolled a : " + str(opponent_roll))
+
+            elif(opponent_roll == 1):
+                opponent_score = 0
+                opponentTotalLabel.config(text="Their total score is : " + str(opponent_score))
+                opponentAddLabel.config(text="They rolled a 1... Their score reset!")
+
+                player_roll = random.randint(1,6)
+                player_score += player_roll
+                playerTotalLabel.config(text="You total score is : " + str(player_score))
+                playerAddLabel.config(text="You rolled a : " + str(player_roll))
+
+
+            else:
+                player_score += player_roll
+                opponent_score += opponent_roll
+
+                playerTotalLabel.config(text="You total score is : " + str(player_score))
+                opponentTotalLabel.config(text="Their total score is : " + str(opponent_score))
+                playerAddLabel.config(text="You rolled a : " + str(player_roll))
+                opponentAddLabel.config(text="They rolled a : " + str(opponent_roll))
+
+    playerAddLabel = Label(GWindow, text = blankString, font=("Helvetica", 12))
+    opponentAddLabel = Label(GWindow, text = blankString, font=("Helvetica", 12))
+    playerTotalLabel = Label(GWindow, text = blankString, font=("Helvetica", 15))
+    opponentTotalLabel = Label(GWindow, text = blankString, font=("Helvetica", 15))
+
+    winnerLabel = Label(GWindow, text = blankString, font=("Helvetica", 19))
+
+    playerAddLabel.place(x=250,y=90)
+    opponentAddLabel.place(x=245,y=130)
+    playerTotalLabel.place(x=20,y=80)
+    opponentTotalLabel.place(x=20,y=130)
+
+    winnerLabel.place(x=50, y=170)
+
+    rollButton = Button(GWindow, text="Roll The Dice...", height = 3, width = 30, command = RollFunc, bg="lightblue")
+    rollButton.place(x=185, y=225)
+    
+    quitButton = Button(GWindow, text="Back", height = 3, width = 60,command = GWindow.destroy, bg="tomato")
+    quitButton.place(x=85,y=300)  
 
 def OpenCalcWindow():
 
@@ -174,7 +260,7 @@ def OpenInsultWindow():
     buttonTwo = Button(OpenInsultWindow.insultWindow, text="Back", height = 3, width = 60,command = OpenInsultWindow.insultWindow.destroy, bg="tomato")
     buttonTwo.place(x=85,y=300)  
     
-    insult_label = Label(OpenInsultWindow.insultWindow, text="", font=("Helvetica", 14))
+    insult_label = Label(OpenInsultWindow.insultWindow, text="", font=("Helvetica", 18))
     insult_label.pack()
 
 #Header setup
@@ -198,6 +284,10 @@ def GuessingButtonSetup(text, xPos, yPos):
     buttonOne = Button(window, text=text, height = 2, width = 13,command = OpenGuessingWindow, bg="silver")
     buttonOne.place(x=xPos,y=yPos)
     
+def PigDiceButtonSetup(text, xPos, yPos):
+    buttonOne = Button(window, text=text, height = 2, width = 13, command = OpenPigDiceWindow, bg = "silver")
+    buttonOne.place(x=xPos, y=yPos)
+
 def CalcButtonSetup(text, xPos, yPos):
     buttonOne = Button(window, text=text, height = 2, width = 13, command = OpenCalcWindow, bg="silver")
     buttonOne.place(x=xPos, y=yPos)
@@ -216,7 +306,7 @@ def DrawMenu():
     
     GuessingButtonSetup("Guessing Game", 100, 135)
     CalcButtonSetup("Calculator", 250, 135)
-    ButtonSetup("option3", 400, 135)
+    PigDiceButtonSetup("Pig Dice Game", 400, 135)
     InsultButtonSetup("Insult Me", 175, 210)
     ButtonSetup("option5", 325, 210)
     
