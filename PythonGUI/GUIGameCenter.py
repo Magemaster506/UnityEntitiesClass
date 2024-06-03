@@ -217,19 +217,45 @@ def OpenCalcWindow():
 def OpenRpsWindow():
     #Setting up the game window
     GWindow = Toplevel(window)
-    GWindow.title("Calculator")
+    GWindow.title("Rock Paper Scissors")
     GWindow.minsize(WINWIDTH, WINHEIGHT)
     GWindow.resizable(False, False)
     #Setting up the header
     title = Label(GWindow, text = "Rock Paper Scissors.", font =("Helvetica", 25)).pack()
 
+    player_choice = ""
+    computer_choice = ""
+
+    def scissors():
+        player_choice = "scissors"
+        playerChoiceLabel.config(text = "Player chose scissors.")
+
+    def paper():
+        player_choice = "paper"
+        playerChoiceLabel.config(text = "Player chose paper.")
+
+    def rock():
+        player_choice = "rock"
+        playerChoiceLabel.config(text = "Player chose rock.")
     
-    
-    addButton = Button(GWindow, text="Scissors", height = 2, width = 10, command = ReturnHello, bg="lightblue")
+    playerScoreLabel = Label(GWindow, text = "Player Score = 0", font = ("Helevtica", 14))
+    computerScoreLabel = Label(GWindow, text = "Computer Score = 0", font=("Helvetica", 14))
+    playerScoreLabel.place(x=35,y=100)
+    computerScoreLabel.place(x=395,y=100)
+
+    playerChoiceLabel = Label(GWindow, text = blankString, font = ("Helevtica", 14))
+    computerChoiceLabel = Label(GWindow, text = blankString, font = ("Helevtica", 14))
+    resultLabel = Label(GWindow, text = blankString, font = ("Helevtica", 14))
+
+    playerChoiceLabel.place(x=300,y=150, anchor = CENTER)
+    computerChoiceLabel.place(x=300,y=180, anchor = CENTER)
+    resultLabel.place(x=300,y=210, anchor = CENTER)
+
+    addButton = Button(GWindow, text="Scissors", height = 2, width = 10, command = scissors, bg="lightblue")
     addButton.place(x=150, y=240)
-    minusButton = Button(GWindow, text="Paper", height = 2, width = 10, command = ReturnHello, bg="lightblue")
+    minusButton = Button(GWindow, text="Paper", height = 2, width = 10, command = paper, bg="lightblue")
     minusButton.place(x=260, y=240)
-    multiButton = Button(GWindow, text="Rock", height = 2, width = 10, command = ReturnHello, bg="lightblue")
+    multiButton = Button(GWindow, text="Rock", height = 2, width = 10, command = rock, bg="lightblue")
     multiButton.place(x=370, y=240)
     
     quitButton = Button(GWindow, text="Back", height = 3, width = 60,command = GWindow.destroy, bg="tomato")
