@@ -4,7 +4,7 @@ from tkinter import messagebox
 import random
 
 #Initialise varaibles
-TITLE = "Python Game Center"
+TITLE = "Python Playhouse"
 WINWIDTH = 600
 WINHEIGHT = 400
 
@@ -119,7 +119,6 @@ def OpenPigDiceWindow():
                 playerTotalLabel.config(text="You total score is : " + str(player_score))
                 playerAddLabel.config(text="You rolled a : " + str(player_roll))
 
-
             else:
                 player_score += player_roll
                 opponent_score += opponent_roll
@@ -215,6 +214,27 @@ def OpenCalcWindow():
     quitButton = Button(GWindow, text="Back", height = 3, width = 60,command = GWindow.destroy, bg="tomato")
     quitButton.place(x=85,y=300)  
 
+def OpenRpsWindow():
+    #Setting up the game window
+    GWindow = Toplevel(window)
+    GWindow.title("Calculator")
+    GWindow.minsize(WINWIDTH, WINHEIGHT)
+    GWindow.resizable(False, False)
+    #Setting up the header
+    title = Label(GWindow, text = "Rock Paper Scissors.", font =("Helvetica", 25)).pack()
+
+    
+    
+    addButton = Button(GWindow, text="Scissors", height = 2, width = 10, command = ReturnHello, bg="lightblue")
+    addButton.place(x=150, y=240)
+    minusButton = Button(GWindow, text="Paper", height = 2, width = 10, command = ReturnHello, bg="lightblue")
+    minusButton.place(x=260, y=240)
+    multiButton = Button(GWindow, text="Rock", height = 2, width = 10, command = ReturnHello, bg="lightblue")
+    multiButton.place(x=370, y=240)
+    
+    quitButton = Button(GWindow, text="Back", height = 3, width = 60,command = GWindow.destroy, bg="tomato")
+    quitButton.place(x=85,y=300)  
+
 def OpenInsultWindow():
     OpenInsultWindow.insultWindow = Tk()
     OpenInsultWindow.insultWindow.title("Insult Me")
@@ -292,6 +312,10 @@ def CalcButtonSetup(text, xPos, yPos):
     buttonOne = Button(window, text=text, height = 2, width = 13, command = OpenCalcWindow, bg="silver")
     buttonOne.place(x=xPos, y=yPos)
 
+def RpsButtonSetup(text, xPos, yPos):
+    buttonOne = Button(window, text=text, height = 2, width = 13, command = OpenRpsWindow, bg="silver")
+    buttonOne.place(x=xPos,y=yPos)
+
 def ButtonSetup(text, xPos, yPos):
     buttonOne = Button(window, text=text, height = 2, width = 13,command = ReturnHello, bg="silver")
     buttonOne.place(x=xPos,y=yPos)
@@ -308,7 +332,7 @@ def DrawMenu():
     CalcButtonSetup("Calculator", 250, 135)
     PigDiceButtonSetup("Pig Dice Game", 400, 135)
     InsultButtonSetup("Insult Me", 175, 210)
-    ButtonSetup("option5", 325, 210)
+    RpsButtonSetup("RockPaperScissors", 325, 210)
     
     QuitButtonSetup("Quit", 85, 300)
 
