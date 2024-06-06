@@ -223,16 +223,45 @@ def OpenRpsWindow():
     #Setting up the header
     title = Label(GWindow, text = "Rock Paper Scissors.", font =("Helvetica", 25)).pack()
 
+    global player_choice
+    global computer_choice
+
     player_choice = ""
     computer_choice = ""
 
+    options = ['scissors', 'paper', 'rock']
+
     def scissors():
+        global player_choice
+        global computer_choice
+
         player_choice = "scissors"
         playerChoiceLabel.config(text = "Player chose scissors.")
+        computer_choice = random.choice(options)
+        computerChoiceLabel.config(text = "The Computer chose " + computer_choice)
+
+        if(computer_choice == player_choice):
+            resultLabel.config(text = "It was a tie!")
+        elif(computer_choice == 'rock'):
+            resultLabel.config(text = "You Lose!")
+        elif(computer_choice == 'paper'):
+            resultLabel.config(text = "You Win!")
 
     def paper():
+        global player_choice
+        global computer_choice
+
         player_choice = "paper"
         playerChoiceLabel.config(text = "Player chose paper.")
+        computer_choice = random.choice(options)
+        computerChoiceLabel.config(text =  "The computer chose " + computer_choice)
+
+        if(computer_choice == player_choice):
+            resultLabel.config(text = "It was a tie!")
+        elif(computer_choice == 'rock'):
+            resultLabel.config(text = "You Win!")
+        elif(computer_choice == 'scissors'):
+            resultLabel.config(text = " You Lose!")
 
     def rock():
         player_choice = "rock"
@@ -249,7 +278,7 @@ def OpenRpsWindow():
 
     playerChoiceLabel.place(x=300,y=150, anchor = CENTER)
     computerChoiceLabel.place(x=300,y=180, anchor = CENTER)
-    resultLabel.place(x=300,y=210, anchor = CENTER)
+    resultLabel.place(x=300,y=225, anchor = CENTER)
 
     addButton = Button(GWindow, text="Scissors", height = 2, width = 10, command = scissors, bg="lightblue")
     addButton.place(x=150, y=240)
