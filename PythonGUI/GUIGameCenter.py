@@ -225,47 +225,128 @@ def OpenRpsWindow():
 
     global player_choice
     global computer_choice
-
     player_choice = ""
     computer_choice = ""
+
+    global player_rps_score
+    global computer_rps_score
+    player_rps_score = 0
+    computer_rps_score = 0
 
     options = ['scissors', 'paper', 'rock']
 
     def scissors():
         global player_choice
         global computer_choice
+        global player_rps_score
+        global computer_rps_score
 
-        player_choice = "scissors"
-        playerChoiceLabel.config(text = "Player chose scissors.")
-        computer_choice = random.choice(options)
-        computerChoiceLabel.config(text = "The Computer chose " + computer_choice)
+        if player_rps_score >= 5:
+            playerChoiceLabel.config(text = blankString)
+            computerChoiceLabel.config(text = blankString) 
 
-        if(computer_choice == player_choice):
-            resultLabel.config(text = "It was a tie!")
-        elif(computer_choice == 'rock'):
-            resultLabel.config(text = "You Lose!")
-        elif(computer_choice == 'paper'):
-            resultLabel.config(text = "You Win!")
+            resultLabel.config(text = "You Won The Game!!!")
+            resultLabel.place(x=300,y=200, anchor=CENTER)
+
+        elif computer_rps_score >= 5:
+            playerChoiceLabel.config(text = blankString)
+            computerChoiceLabel.config(text = blankString)
+
+            resultLabel.config(text = "You Lost The Game!!!")
+            resultLabel.place(x=300,y=200, anchor=CENTER)
+
+        else:
+            player_choice = "scissors"
+            playerChoiceLabel.config(text = "Player chose scissors.")
+            computer_choice = random.choice(options)
+            computerChoiceLabel.config(text = "The Computer chose " + computer_choice)
+
+            if(computer_choice == player_choice):
+                resultLabel.config(text = "It was a tie!")
+            elif(computer_choice == 'rock'):
+                resultLabel.config(text = "You Lose!")
+                computer_rps_score += 1 
+                computerScoreLabel.config(text = "Computer Score = " + str(computer_rps_score))
+            elif(computer_choice == 'paper'):
+                resultLabel.config(text = "You Win!")
+                player_rps_score += 1
+                playerScoreLabel.config(text = "Player Score = " + str(player_rps_score))
 
     def paper():
         global player_choice
         global computer_choice
+        global player_rps_score
+        global computer_rps_score
 
-        player_choice = "paper"
-        playerChoiceLabel.config(text = "Player chose paper.")
-        computer_choice = random.choice(options)
-        computerChoiceLabel.config(text =  "The computer chose " + computer_choice)
+        if player_rps_score >= 5:
+            playerChoiceLabel.config(text = blankString)
+            computerChoiceLabel.config(text = blankString) 
 
-        if(computer_choice == player_choice):
-            resultLabel.config(text = "It was a tie!")
-        elif(computer_choice == 'rock'):
-            resultLabel.config(text = "You Win!")
-        elif(computer_choice == 'scissors'):
-            resultLabel.config(text = " You Lose!")
+            resultLabel.config(text = "You Won The Game!!!")
+            resultLabel.place(x=300,y=200, anchor=CENTER)
+
+        elif computer_rps_score >= 5:
+            playerChoiceLabel.config(text = blankString)
+            computerChoiceLabel.config(text = blankString) 
+
+            resultLabel.config(text = "You Lost The Game!!!")
+            resultLabel.place(x=300,y=200, anchor=CENTER)
+
+        else:
+            player_choice = "paper"
+            playerChoiceLabel.config(text = "Player chose paper.")
+            computer_choice = random.choice(options)
+            computerChoiceLabel.config(text =  "The computer chose " + computer_choice)
+
+            if(computer_choice == player_choice):
+                resultLabel.config(text = "It was a tie!")
+            elif(computer_choice == 'rock'):
+                resultLabel.config(text = "You Win!")
+                player_rps_score += 1
+                playerScoreLabel.config(text = "Player Score = " + str(player_rps_score))
+            elif(computer_choice == 'scissors'):
+                resultLabel.config(text = " You Lose!")
+                computer_rps_score += 1 
+                computerScoreLabel.config(text = "Computer Score = " + str(computer_rps_score))
 
     def rock():
+        global player_choice
+        global computer_choice
+        global player_rps_score
+        global computer_rps_score
+
         player_choice = "rock"
-        playerChoiceLabel.config(text = "Player chose rock.")
+        if player_rps_score >= 5:
+            playerChoiceLabel.config(text = blankString)
+            computerChoiceLabel.config(text = blankString) 
+
+            resultLabel.config(text = "You Won The Game!!!")
+            resultLabel.place(x=300,y=200, anchor=CENTER)
+
+        elif computer_rps_score >= 5:
+            playerChoiceLabel.config(text = blankString)
+            computerChoiceLabel.config(text = blankString)
+
+            resultLabel.config(text = "You Lost The Game!!!")
+            resultLabel.place(x=300,y=200, anchor=CENTER)
+            
+        else:
+            playerChoiceLabel.config(text = "Player chose rock.")
+            computer_choice = random.choice(options)
+            computerChoiceLabel.config(text = "The computer chose " + computer_choice)
+
+            if(computer_choice == player_choice):
+                resultLabel.config(text = "It was a tie!")
+            elif(computer_choice == 'paper'):
+                resultLabel.config(text = "You Lose!")
+                computer_rps_score += 1 
+                computerScoreLabel.config(text = "Computer Score = " + str(computer_rps_score))
+            elif(computer_choice == 'scissors'):
+                resultLabel.config(text = "You Win!")
+                player_rps_score += 1
+                playerScoreLabel.config(text = "Player Score = " + str(player_rps_score))
+
+
     
     playerScoreLabel = Label(GWindow, text = "Player Score = 0", font = ("Helevtica", 14))
     computerScoreLabel = Label(GWindow, text = "Computer Score = 0", font=("Helvetica", 14))
