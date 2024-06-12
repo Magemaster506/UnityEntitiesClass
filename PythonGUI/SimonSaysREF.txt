@@ -1,0 +1,132 @@
+Initialize game:
+    Create list colors = ["red", "green", "blue", "yellow"]
+    Initialize empty list sequence
+    Initialize empty list player_sequence
+    Initialize integer level = 0
+
+Create GUI:
+    Create main window
+    Create buttons for each color in colors
+    Create start button
+    Create label for messages
+
+Function start_game():
+    Clear sequence
+    Clear player_sequence
+    Set level to 0
+    Clear message label
+    Call next_level()
+
+Function next_level():
+    Increment level by 1
+    Clear player_sequence
+    Add random color to sequence
+    Update message label with "Level {level}"
+    Call play_sequence() after 1000 milliseconds
+
+Function play_sequence():
+    For each color in sequence:
+        Call flash_button(color) with delay (index * 1000 milliseconds)
+
+Function flash_button(color):
+    Store original color of button
+    Change button color to white
+    Change button color back to original color after 500 milliseconds
+
+Function player_input(color):
+    Append color to player_sequence
+    If player_sequence matches the corresponding part of sequence:
+        If player_sequence length equals sequence length:
+            Update message label with "Correct!"
+            Call next_level() after 1000 milliseconds
+    Else:
+        Update message label with "Game Over!"
+        Enable start button
+
+On start button click:
+    Call start_game()
+
+On color button click:
+    Call player_input(color)
+
+Main loop:
+    Run the main window loop
+
+def OpenSimonWindow():
+    # Global variables for game state
+    global colors, sequence, player_sequence, level, buttons, start_button, message_label, game_window
+    colors = ["red", "green", "blue", "yellow"]
+    sequence = []
+    player_sequence = []
+    level = 0
+
+    # Create main window
+    main_window = tk.Tk()
+    main_window.title("Simon Says")
+    main_window.minsize(400, 300)
+    main_window.resizable(False, False)
+    
+    lbl = tk.Label(main_window, text="- Simon Says Rules -", font=("Helvetica", 20))
+    lbl.pack(pady=10)
+    
+    # Create game window
+    game_window = tk.Toplevel(main_window)
+    game_window.title("Simon Says")
+    game_window.minsize(400, 400)
+    game_window.resizable(False, False)
+    
+    buttons = {}
+    for color in colors:
+        button = tk.Button(game_window, bg=color, width=10, height=5, command=lambda c=color: player_input(c))
+        button.pack(side=tk.LEFT, padx=10, pady=10)
+        buttons[color] = button
+    
+    start_button = tk.Button(game_window, text="Start", command=start_game)
+    start_button.pack(pady=20)
+    
+    message_label = tk.Label(game_window, text="", font=("Helvetica", 16))
+    message_label.pack(pady=20)
+
+    # Start game
+    def start_game():
+        global sequence, player_sequence, level
+        sequence = []
+        player_sequence = []
+        level = 0
+        message_label.config(text="")
+        next_level()
+
+    # Next level
+    def next_level():
+        global level, sequence, player_sequence
+        level += 1
+        player_sequence = []
+        sequence.append(random.choice(colors))
+        message_label.config(text=f"Level {level}")
+        game_window.after(1000, play_sequence)
+
+    # Play sequence
+    def play_sequence():
+        for index, color in enumerate(sequence):
+            game_window.after(index * 1000, lambda c=color: flash_button(c))
+
+    # Flash button
+    def flash_button(color):
+        original_color = buttons[color].cget("bg")
+        buttons[color].config(bg="white")
+        game_window.after(500, lambda: buttons[color].config(bg=original_color))
+
+    # Player input
+    def player_input(color):
+        global player_sequence
+        player_sequence.append(color)
+        if player_sequence == sequence[:len(player_sequence)]:
+            if len(player_sequence) == len(sequence):
+                message_label.config(text="Correct!")
+                game_window.after(1000, next_level)
+        else:
+            message_label.config(text="Game Over!")
+            start_button.config(state=tk.NORMAL)
+    
+    # Run the main loop
+    main_window.mainloop()

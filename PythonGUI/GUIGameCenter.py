@@ -1,5 +1,6 @@
 #Imports
 from tkinter import *
+import tkinter as tk
 from tkinter import messagebox
 import random
 
@@ -10,7 +11,7 @@ WINHEIGHT = 400
 
 #Mainmenu Window Setup
 window = Tk()
-window.title(TITLE)
+window.title(TITLE) 
 window.minsize(WINWIDTH, WINHEIGHT)
 window.resizable(False, False)
 
@@ -371,6 +372,13 @@ def OpenRpsWindow():
     quitButton = Button(GWindow, text="Back", height = 3, width = 60,command = GWindow.destroy, bg="tomato")
     quitButton.place(x=85,y=300)  
 
+def OpenSimonWindow():
+    OpenSimonWindow.simonWindow = Tk()
+    OpenSimonWindow.simonWindow.title("Simon Says")
+    OpenSimonWindow.simonWindow.minsize(WINWIDTH, WINHEIGHT)
+    OpenSimonWindow.simonWindow.resizable(False, False)
+    lbl = Label(OpenSimonWindow.simonWindow, text = "-Simon Says Rules-", font = ("Helvetica", 20)).pack()
+
 def OpenInsultWindow():
     OpenInsultWindow.insultWindow = Tk()
     OpenInsultWindow.insultWindow.title("Insult Me")
@@ -451,6 +459,10 @@ def CalcButtonSetup(text, xPos, yPos):
 def RpsButtonSetup(text, xPos, yPos):
     buttonOne = Button(window, text=text, height = 2, width = 13, command = OpenRpsWindow, bg="silver")
     buttonOne.place(x=xPos,y=yPos)
+    
+def SimonButtonSetup(text, xPos, yPos):
+    buttonOne = Button(window, text=text, height = 2, width = 13, command = OpenSimonWindow, bg="silver")
+    buttonOne.place(x=xPos,y=yPos)
 
 def ButtonSetup(text, xPos, yPos):
     buttonOne = Button(window, text=text, height = 2, width = 13,command = ReturnHello, bg="silver")
@@ -467,7 +479,7 @@ def DrawMenu():
     GuessingButtonSetup("Guessing Game", 100, 135)
     CalcButtonSetup("Calculator", 250, 135)
     PigDiceButtonSetup("Pig Dice Game", 400, 135)
-    InsultButtonSetup("Insult Me", 175, 210)
+    SimonButtonSetup("Simon Says", 175, 210)
     RpsButtonSetup("RockPaperScissors", 325, 210)
     
     QuitButtonSetup("Quit", 85, 300)
