@@ -373,11 +373,70 @@ def OpenRpsWindow():
     quitButton.place(x=85,y=300)  
 
 def OpenSimonWindow():
-    OpenSimonWindow.simonWindow = Tk()
-    OpenSimonWindow.simonWindow.title("Simon Says")
-    OpenSimonWindow.simonWindow.minsize(WINWIDTH, WINHEIGHT)
-    OpenSimonWindow.simonWindow.resizable(False, False)
-    lbl = Label(OpenSimonWindow.simonWindow, text = "-Simon Says Rules-", font = ("Helvetica", 20)).pack()
+
+    global colors, sequence, player_sequence, level, buttons, start_button, message_label, main_window
+    colors = ["red", "green", "blue", "yellow"]
+    sequence = []
+    player_sequence = []
+    level = 0
+
+    main_window = tk.Tk()
+    main_window.title("Simon Says")
+    main_window.minsize(WINWIDTH, WINHEIGHT)
+    main_window.resizable(False,False)
+    lbl = Label(main_window, text = "-Simon Says Rules-", font = ("Helvetica", 20)).pack()
+
+    buttons = {}
+    for color in colors:
+        button = tk.Button(main_window, bg=color, width=10, height=5, command=lambda c=color: player_input(c))
+        button.pack(side=tk.LEFT, padx=35, pady=0)
+        buttons[color] = button
+
+
+    def start_game():
+        global sequence, player_sequence, level
+        sequence = []
+        player_sequence = []
+        level = 0
+        message_label.config(text="")
+        next_level()
+    
+
+    start_button = tk.Button(main_window, text="Start", command=start_game)
+    start_button.place(x=0, y=0)
+
+    message_label = tk.Label(main_window, text="", font=("Helvetica", 16))
+    message_label.pack(pady=0)
+
+    def next_level():
+        global level, sequence, player_sequence
+        level += 1
+        player_sequence = []
+        sequence.append(random.choice(colors))
+        message_label.config(text=f"Level {level}")
+        main_window.after(1000, play_sequence)
+    
+    def play_sequence():
+        for index, color in enumerate(sequence):
+            main_window.after(index * 1000, lambda c=color: flash_button(c))
+    
+    def flash_button(color):
+        original_color = buttons[color].cget("bg")
+        buttons[color].config(bg="white")
+        window.after(500, lambda: buttons[color].config(bg=original_color))
+    
+    def player_input(color):
+        global player_sequence
+        player_sequence.append(color)
+        if player_sequence == sequence[:len(player_sequence)]:
+            if len(player_sequence) == len(sequence):
+                message_label.config(text="Correct!")
+                main_window.after(1000, next_level)
+        else:
+            message_label.config(text="Game Over!")
+            start_button.config(state=tk.NORMAL)
+
+
 
 def OpenInsultWindow():
     OpenInsultWindow.insultWindow = Tk()
