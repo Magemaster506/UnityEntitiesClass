@@ -23,7 +23,6 @@ opponent_score = 0
 blankString = ""
 
 #Declaring functions
-
 #Function to test buttons
 def ReturnHello():
     msg=messagebox.showinfo("CallBack", "Text")
@@ -34,7 +33,7 @@ def OpenGuessingWindow():
     GWindow.title("Guessing Game")
     GWindow.minsize(WINWIDTH, WINHEIGHT)
     GWindow.resizable(False, False)
-    lbl = Label(GWindow, text = "Press the button below to guess.", font =("Helvetica", 25)).pack()
+    lbl = Label(GWindow, text = "Press the button below to guess.", font=("Helvetica", 25)).pack()
     minimumRandomNumber = 1
     maximumRandomNumber = 100 
     correct_number = random.randint(minimumRandomNumber, maximumRandomNumber)
@@ -413,7 +412,7 @@ def OpenSimonWindow():
     start_button.place(x=225, y=80)
 
     message_label = tk.Label(main_window, text="", font=("Helvetica", 16))
-    message_label.place(x=262.5,y=135)
+    message_label.place(x=300,y=145, anchor = CENTER)
 
     def next_level():
         global level, sequence, player_sequence
@@ -440,7 +439,7 @@ def OpenSimonWindow():
                 message_label.config(text="Correct!")
                 main_window.after(1000, next_level)
         else:
-            message_label.config(text="Game Over!")
+            message_label.config(text="Game Over, You Reached A Score Of " + str(level) + "!")
             start_button.config(state=tk.NORMAL)
     
 #function to open the insult me game window

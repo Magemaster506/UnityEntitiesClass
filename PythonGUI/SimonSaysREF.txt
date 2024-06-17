@@ -1,7 +1,7 @@
 Initialize game:
     Create list colours = ["red", "green", "blue", "yellow"]
-    Initialize empty list sequence
-    Initialize empty list player_sequence
+    Initialize  list sequence
+    Initialize  list player_sequence
     Initialize integer level = 0
 
 Create GUI:
