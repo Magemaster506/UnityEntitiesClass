@@ -23,9 +23,12 @@ opponent_score = 0
 blankString = ""
 
 #Declaring functions
+
+#Function to test buttons
 def ReturnHello():
     msg=messagebox.showinfo("CallBack", "Text")
 
+#Function to open the guessing game window
 def OpenGuessingWindow():
     GWindow = Toplevel(window)
     GWindow.title("Guessing Game")
@@ -75,6 +78,7 @@ def OpenGuessingWindow():
     buttonTwo = Button(GWindow, text="Back", height = 3, width = 60,command = GWindow.destroy, bg="tomato")
     buttonTwo.place(x=85,y=300)  
 
+#Function to open the pig dice game window
 def OpenPigDiceWindow():
     GWindow = Toplevel(window)
     GWindow.title("Pig Dice Game")
@@ -149,6 +153,7 @@ def OpenPigDiceWindow():
     quitButton = Button(GWindow, text="Back", height = 3, width = 60,command = GWindow.destroy, bg="tomato")
     quitButton.place(x=85,y=300)  
 
+#Function to open the calculator window
 def OpenCalcWindow():
 
     adding = False
@@ -215,6 +220,7 @@ def OpenCalcWindow():
     quitButton = Button(GWindow, text="Back", height = 3, width = 60,command = GWindow.destroy, bg="tomato")
     quitButton.place(x=85,y=300)  
 
+#Function to open the rock, paper, scissors window
 def OpenRpsWindow():
     #Setting up the game window
     GWindow = Toplevel(window)
@@ -372,8 +378,9 @@ def OpenRpsWindow():
     quitButton = Button(GWindow, text="Back", height = 3, width = 60,command = GWindow.destroy, bg="tomato")
     quitButton.place(x=85,y=300)  
 
+#Function to open the simon says window
 def OpenSimonWindow():
-    
+
     global colours, sequence, player_sequence, level, buttons, start_button, message_label, main_window
     colours = ["red", "green", "blue", "yellow"]
     sequence = []
@@ -384,7 +391,7 @@ def OpenSimonWindow():
     main_window.title("Simon Says")
     main_window.minsize(WINWIDTH, WINHEIGHT)
     main_window.resizable(False,False)
-    lbl = Label(main_window, text = "-Simon Says Rules-", font = ("Helvetica", 20)).pack()
+    lbl = Label(main_window, text = "-Simon Says-", font = ("Helvetica", 25)).pack()
     buttonTwo = Button(main_window, text="Back", height = 3, width = 60,command = main_window.destroy, bg="tomato")
     buttonTwo.place(x=85,y=300)  
 
@@ -402,11 +409,11 @@ def OpenSimonWindow():
         message_label.config(text="")
         next_level()
     
-    start_button = tk.Button(main_window, text="Start", command=start_game)
-    start_button.place(x=0, y=0)
+    start_button = tk.Button(main_window, text="Start", command=start_game, width=20, height=2, bg="lightblue")
+    start_button.place(x=225, y=80)
 
     message_label = tk.Label(main_window, text="", font=("Helvetica", 16))
-    message_label.pack(pady=0)
+    message_label.place(x=262.5,y=135)
 
     def next_level():
         global level, sequence, player_sequence
@@ -436,7 +443,7 @@ def OpenSimonWindow():
             message_label.config(text="Game Over!")
             start_button.config(state=tk.NORMAL)
     
-
+#function to open the insult me game window
 def OpenInsultWindow():
     OpenInsultWindow.insultWindow = Tk()
     OpenInsultWindow.insultWindow.title("Insult Me")
@@ -497,7 +504,15 @@ def TitleSetup(text):
     bodyText.config(font=("Helvetica", 11))
     bodyText.pack()
 
+def GameOptionsSetup():
+    GuessingButtonSetup("Guessing Game", 100, 135)
+    CalcButtonSetup("Calculator", 250, 135)
+    PigDiceButtonSetup("Pig Dice Game", 400, 135)
+    SimonButtonSetup("Simon Says", 175, 210)
+    RpsButtonSetup("RockPaperScissors", 325, 210)
+
 #Individual button setup
+#Function to settup and place the game specific buttons.
 def InsultButtonSetup(text, xPos, yPos):
     buttonOne = Button(window, text=text, height = 2, width = 13, command = OpenInsultWindow, bg="silver")
     buttonOne.place(x=xPos,y=yPos)
@@ -530,15 +545,12 @@ def QuitButtonSetup(text, xPos, yPos):
     buttonOne = Button(window, text=text, height = 3, width = 60,command = window.destroy, bg="tomato")
     buttonOne.place(x=xPos,y=yPos)  
 
+
 #Draw GUI elements to screen
 def DrawMenu():
     TitleSetup(TITLE)
-    
-    GuessingButtonSetup("Guessing Game", 100, 135)
-    CalcButtonSetup("Calculator", 250, 135)
-    PigDiceButtonSetup("Pig Dice Game", 400, 135)
-    SimonButtonSetup("Simon Says", 175, 210)
-    RpsButtonSetup("RockPaperScissors", 325, 210)
+
+    GameOptionsSetup()
     
     QuitButtonSetup("Quit", 85, 300)
 
