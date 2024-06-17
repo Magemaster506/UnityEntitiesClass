@@ -1,12 +1,12 @@
 Initialize game:
-    Create list colors = ["red", "green", "blue", "yellow"]
+    Create list colours = ["red", "green", "blue", "yellow"]
     Initialize empty list sequence
     Initialize empty list player_sequence
     Initialize integer level = 0
 
 Create GUI:
     Create main window
-    Create buttons for each color in colors
+    Create buttons for each colour in colours
     Create start button
     Create label for messages
 
@@ -20,21 +20,21 @@ Function start_game():
 Function next_level():
     Increment level by 1
     Clear player_sequence
-    Add random color to sequence
+    Add random colour to sequence
     Update message label with "Level {level}"
     Call play_sequence() after 1000 milliseconds
 
 Function play_sequence():
-    For each color in sequence:
-        Call flash_button(color) with delay (index * 1000 milliseconds)
+    For each colour in sequence:
+        Call flash_button(colour) with delay (index * 1000 milliseconds)
 
-Function flash_button(color):
-    Store original color of button
-    Change button color to white
-    Change button color back to original color after 500 milliseconds
+Function flash_button(colour):
+    Store original colour of button
+    Change button colour to white
+    Change button colour back to original colour after 500 milliseconds
 
-Function player_input(color):
-    Append color to player_sequence
+Function player_input(colour):
+    Append colour to player_sequence
     If player_sequence matches the corresponding part of sequence:
         If player_sequence length equals sequence length:
             Update message label with "Correct!"
@@ -46,16 +46,16 @@ Function player_input(color):
 On start button click:
     Call start_game()
 
-On color button click:
-    Call player_input(color)
+On colour button click:
+    Call player_input(colour)
 
 Main loop:
     Run the main window loop
 
 def OpenSimonWindow():
     # Global variables for game state
-    global colors, sequence, player_sequence, level, buttons, start_button, message_label, game_window
-    colors = ["red", "green", "blue", "yellow"]
+    global colours, sequence, player_sequence, level, buttons, start_button, message_label, game_window
+    colours = ["red", "green", "blue", "yellow"]
     sequence = []
     player_sequence = []
     level = 0
@@ -76,10 +76,10 @@ def OpenSimonWindow():
     game_window.resizable(False, False)
     
     buttons = {}
-    for color in colors:
-        button = tk.Button(game_window, bg=color, width=10, height=5, command=lambda c=color: player_input(c))
+    for colour in colours:
+        button = tk.Button(game_window, bg=colour, width=10, height=5, command=lambda c=colour: player_input(c))
         button.pack(side=tk.LEFT, padx=10, pady=10)
-        buttons[color] = button
+        buttons[colour] = button
     
     start_button = tk.Button(game_window, text="Start", command=start_game)
     start_button.pack(pady=20)
@@ -101,25 +101,25 @@ def OpenSimonWindow():
         global level, sequence, player_sequence
         level += 1
         player_sequence = []
-        sequence.append(random.choice(colors))
+        sequence.append(random.choice(colours))
         message_label.config(text=f"Level {level}")
         game_window.after(1000, play_sequence)
 
     # Play sequence
     def play_sequence():
-        for index, color in enumerate(sequence):
-            game_window.after(index * 1000, lambda c=color: flash_button(c))
+        for index, colour in enumerate(sequence):
+            game_window.after(index * 1000, lambda c=colour: flash_button(c))
 
     # Flash button
-    def flash_button(color):
-        original_color = buttons[color].cget("bg")
-        buttons[color].config(bg="white")
-        game_window.after(500, lambda: buttons[color].config(bg=original_color))
+    def flash_button(colour):
+        original_colour = buttons[colour].cget("bg")
+        buttons[colour].config(bg="white")
+        game_window.after(500, lambda: buttons[colour].config(bg=original_colour))
 
     # Player input
-    def player_input(color):
+    def player_input(colour):
         global player_sequence
-        player_sequence.append(color)
+        player_sequence.append(colour)
         if player_sequence == sequence[:len(player_sequence)]:
             if len(player_sequence) == len(sequence):
                 message_label.config(text="Correct!")

@@ -373,9 +373,9 @@ def OpenRpsWindow():
     quitButton.place(x=85,y=300)  
 
 def OpenSimonWindow():
-
-    global colors, sequence, player_sequence, level, buttons, start_button, message_label, main_window
-    colors = ["red", "green", "blue", "yellow"]
+    
+    global colours, sequence, player_sequence, level, buttons, start_button, message_label, main_window
+    colours = ["red", "green", "blue", "yellow"]
     sequence = []
     player_sequence = []
     level = 0
@@ -385,13 +385,14 @@ def OpenSimonWindow():
     main_window.minsize(WINWIDTH, WINHEIGHT)
     main_window.resizable(False,False)
     lbl = Label(main_window, text = "-Simon Says Rules-", font = ("Helvetica", 20)).pack()
+    buttonTwo = Button(main_window, text="Back", height = 3, width = 60,command = main_window.destroy, bg="tomato")
+    buttonTwo.place(x=85,y=300)  
 
     buttons = {}
-    for color in colors:
-        button = tk.Button(main_window, bg=color, width=10, height=5, command=lambda c=color: player_input(c))
+    for colour in colours:
+        button = tk.Button(main_window, bg=colour, width=10, height=5, command=lambda c=colour: player_input(c))
         button.pack(side=tk.LEFT, padx=35, pady=0)
-        buttons[color] = button
-
+        buttons[colour] = button
 
     def start_game():
         global sequence, player_sequence, level
@@ -401,7 +402,6 @@ def OpenSimonWindow():
         message_label.config(text="")
         next_level()
     
-
     start_button = tk.Button(main_window, text="Start", command=start_game)
     start_button.place(x=0, y=0)
 
@@ -412,22 +412,22 @@ def OpenSimonWindow():
         global level, sequence, player_sequence
         level += 1
         player_sequence = []
-        sequence.append(random.choice(colors))
+        sequence.append(random.choice(colours))
         message_label.config(text=f"Level {level}")
         main_window.after(1000, play_sequence)
     
     def play_sequence():
-        for index, color in enumerate(sequence):
-            main_window.after(index * 1000, lambda c=color: flash_button(c))
+        for index, colour in enumerate(sequence):
+            main_window.after(index * 1000, lambda c=colour: flash_button(c))
     
-    def flash_button(color):
-        original_color = buttons[color].cget("bg")
-        buttons[color].config(bg="white")
-        window.after(500, lambda: buttons[color].config(bg=original_color))
+    def flash_button(colour):
+        original_colour = buttons[colour].cget("bg")
+        buttons[colour].config(bg="white")
+        window.after(500, lambda: buttons[colour].config(bg=original_colour))
     
-    def player_input(color):
+    def player_input(colour):
         global player_sequence
-        player_sequence.append(color)
+        player_sequence.append(colour)
         if player_sequence == sequence[:len(player_sequence)]:
             if len(player_sequence) == len(sequence):
                 message_label.config(text="Correct!")
@@ -435,8 +435,7 @@ def OpenSimonWindow():
         else:
             message_label.config(text="Game Over!")
             start_button.config(state=tk.NORMAL)
-
-
+    
 
 def OpenInsultWindow():
     OpenInsultWindow.insultWindow = Tk()
@@ -469,7 +468,7 @@ def OpenInsultWindow():
             "horn-beast", "hugger-mugger", "joithead", "lewdster", "lout", "maggot-pie", "malt-worm", "mammet",
             "measle", "minnow", "miscreant", "moldwarp", "mumble-news", "nut-hook", "pigeon-egg", "pignut",
             "puttock", "pumpion", "ratsbane", "scud", "skainsmate", "trumpet", "varlot", "vassal", "whey-face",
-            "wagtail"]
+            "wagtail", "foot licker"]
 
         maxcol1 = len(column1)
         maxcol2 = len(column2)
