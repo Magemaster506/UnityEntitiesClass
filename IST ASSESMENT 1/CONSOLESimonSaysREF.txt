@@ -1,0 +1,112 @@
+Miller’s Theory
+Copy and paste the code into your Python editor and explore how it works
+#import random function to generate random numbers
+import random
+
+
+
+
+# import sleep to show output for some time period
+from time import sleep
+
+
+
+
+# define function to clear the screen
+def clear_screen():
+  print("\n" * 50)
+
+
+
+
+# define variables
+numbers = ["0","1","2","3","4","5","6","7","8","9"]
+sequence =[]
+playflag = True
+counter = 0
+
+
+
+
+print ("In a famous paper, “The Magical Number Seven, Plus or Minus Two: Some Limits on Our Capacity for Processing Information” (1956),")
+print ("Miller proposed as a law of human cognition and information processing that humans can effectively process no more than seven units,")
+print ("or chunks, of information, plus or minus 2")
+print()
+
+
+
+
+while playflag == True:
+  # Select a random element from the list of numbers
+  element = random.choice(numbers)
+
+
+
+
+  # Append the element to the end of the sequence
+  sequence.append(element)
+
+
+
+
+  # Print and strip the quotation marks from the list elements
+  if counter <= 3:
+      print('You have 3 seconds to memorise the following sequence of numbers')
+      print(*sequence, sep=', ')
+      # give the user 3 seconds to memorise the sequence
+      sleep (3)
+  elif counter <= 6:
+      print('You have 4 seconds to memorise the following sequence of numbers')
+      print(*sequence, sep=', ')
+      # give the user 4 seconds to memorise the sequence
+      sleep (4)
+  else:
+      print('You have 5 seconds to memorise the following sequence of numbers')
+      print(*sequence, sep=', ')
+      # give the user 5 seconds to memorise the sequence
+      sleep (5)
+
+
+
+
+
+
+  # Clear the screen
+  clear_screen()
+
+
+
+
+  # Prompt the user to enter the sequence
+  userguess =input("Enter the sequence separated by a space ")
+  userguess = userguess.split()
+
+
+
+
+  # Selection structure to compre the userguess with the sequence
+  if userguess == sequence: # For a correctly remembered sequence
+      print("Your have remembered correctly.")
+      # Add 1 to the counter for sequences remembered correctly and display to user
+      counter = counter +1
+      print ("Length of sequence remembered:",counter)
+      # prompt to control program flow
+      input("Press enter to continue: ")
+      print()
+
+
+
+
+  else: # For an incorrect guess
+      print("Too bad. The sequence was", *sequence, sep=', ')
+      print ("Length of sequence remembered", counter)
+      # Set the exit condition
+      playflag = False
+
+
+
+
+print("Thank you for playing")
+
+
+

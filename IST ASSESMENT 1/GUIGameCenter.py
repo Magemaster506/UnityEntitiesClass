@@ -544,7 +544,6 @@ def QuitButtonSetup(text, xPos, yPos):
     buttonOne = Button(window, text=text, height = 3, width = 60,command = window.destroy, bg="tomato")
     buttonOne.place(x=xPos,y=yPos)  
 
-
 #Draw GUI elements to screen
 def DrawMenu():
     TitleSetup(TITLE)
